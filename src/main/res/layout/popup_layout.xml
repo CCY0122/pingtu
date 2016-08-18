@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+    <TextView
+        android:background="@drawable/button_shape"
+        android:id="@+id/type_1"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="2*2"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"/>
+    <TextView
+        android:background="@drawable/button_shape"
+        android:clickable="true"
+        android:layout_margin="10dp"
+        android:id="@+id/type_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3*3"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"/>
+    <TextView
+        android:background="@drawable/button_shape"
+        android:clickable="true"
+        android:layout_margin="10dp"
+        android:id="@+id/type_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3*4"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"/>
+    <TextView
+        android:background="@drawable/button_shape"
+        android:clickable="true"
+        android:layout_margin="10dp"
+        android:id="@+id/type_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4*4"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"/>
+
+</LinearLayout>

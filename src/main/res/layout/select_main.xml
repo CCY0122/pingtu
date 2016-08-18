@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/type_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择难度"
+            android:background="@drawable/button_shape"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/type_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3*3"
+            android:textSize="25sp"
+            android:paddingLeft="20dp"/>
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/picture_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:layout_margin="10dp"
+        android:verticalSpacing="5dp"
+        android:layout_gravity="center_horizontal|center_vertical">
+    </GridView>
+
+</LinearLayout>
