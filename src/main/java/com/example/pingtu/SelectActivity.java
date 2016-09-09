@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class SelectActivity extends AppCompatActivity {
     private TextView popupType_3;
     private TextView popupType_4;
     private PopupWindow popup;
+    private Button chooseFromAlbum;
 
 
     @Override
@@ -64,6 +66,13 @@ public class SelectActivity extends AppCompatActivity {
             Bitmap bm =decodeBitmap(imageIdList[i],120,120);
             bitmapList.add(bm);
         }
+        chooseFromAlbum = (Button) findViewById(R.id.choose_from_album);
+        chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogCustom();
+            }
+        });
         gridView = (GridView) findViewById(R.id.picture_list);
         gridView.setAdapter(new GridAdapter(this,bitmapList));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,50 +96,55 @@ public class SelectActivity extends AppCompatActivity {
         });
     }
 
-//    private void showDialogCustom() {
-//        TEMP_IMAGE_PATH = Environment.getExternalStorageDirectory().getPath()+"/t.jpg";
-//        AlertDialog.Builder builder = new AlertDialog.Builder(SelectActivity.this);
-//        builder.setTitle("选择");
-//        String [] choose = new String[]{"本地相册","拍照"};
-//        builder.setItems(choose, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                if(which == 0){
-//                    Intent intent = new Intent(Intent.ACTION_PICK, null);
-//                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                    startActivityForResult(intent, RESULT_IMAGE);
-//                }else  if(which ==1){
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
-//                    Uri photoUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"t.jpg"));
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-//                    startActivityForResult(intent, RESULT_CAMERA);
-//                }
-//            }
-//        });
-//        builder.create().show();
-//    }
+    private void showDialogCustom() {
+        TEMP_IMAGE_PATH = Environment.getExternalStorageDirectory().getPath()+"/t.jpg";
+        AlertDialog.Builder builder = new AlertDialog.Builder(SelectActivity.this);
+        builder.setTitle("选择");
+        String [] choose = new String[]{"本地相册","拍照"};
+        builder.setItems(choose, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == 0){
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                    intent.setType("image/*");
+                    startActivityForResult(intent, RESULT_IMAGE);
+                }else  if(which ==1){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
+                    Uri photoUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"t.jpg"));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                    startActivityForResult(intent, RESULT_CAMERA);
+                }
+            }
+        });
+        builder.create().show();
+    }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode ==RESULT_OK){
-//            if(requestCode == RESULT_IMAGE && data!=null){
-//                Cursor cursor = this.getContentResolver().query(data.getData(),null,null,null,null);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode ==RESULT_OK){
+            if(requestCode == RESULT_IMAGE && data!=null){
+//                Cursor cursor = this.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,null,null,null,null);
 //                cursor.moveToFirst();//有必要么？
 //                String imagePath = cursor.getString(cursor.getColumnIndex("_data"));
-//                Intent intent = new Intent(SelectActivity.this,MainActivity.class);
-//                intent.putExtra("Id",1);
-//                intent.putExtra("picPath",imagePath);
-//                intent.putExtra("type",type);
-//                startActivity(intent);
-//            }else if (requestCode == RESULT_CAMERA);
-//            Intent intent = new Intent(SelectActivity.this,MainActivity.class);
-//            intent.putExtra("Id",1);
-//            intent.putExtra("picPath",TEMP_IMAGE_PATH);
-//            intent.putExtra("type",type);
-//            startActivity(intent);
-//        }
-//    }
+                String imagePath = data.getData().getPath();
+                Log.d("ccy1",""+imagePath);
+                Log.d("ccy1",TEMP_IMAGE_PATH);
+                Intent intent = new Intent(SelectActivity.this,MainActivity.class);
+                intent.putExtra("Id",1);
+                intent.putExtra("picPath",imagePath);
+                intent.putExtra("type",type);
+                startActivity(intent);
+            }else if (requestCode == RESULT_CAMERA) {
+                Intent intent = new Intent(SelectActivity.this, MainActivity.class);
+                intent.putExtra("Id", 1);
+                intent.putExtra("picPath", TEMP_IMAGE_PATH);
+                intent.putExtra("type", type);
+                startActivity(intent);
+            }
+        }
+    }
 
     private void popupInit() {
         popupType_1= (TextView) contentView.findViewById(R.id.type_1);

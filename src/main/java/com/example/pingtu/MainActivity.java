@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     private int type=3;
     private int type_x=3;
-    private int type_y=5;//默认type为3以及对应3*5
+    private int type_y=5;//默认type为3以及对应3*5  //2016-9-9 已更改， 默认值没有意义
     private int ImageResId;
 
     @Override
@@ -113,20 +113,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         intent = getIntent();
-//        int id = intent.getIntExtra("Id",0);
-//        if(id==1){
-//            String path = intent.getStringExtra("picPath");
-//            bigBm =decodeBitmapByFile(path,400,400);
-//        }else {
-            ImageResId = intent.getIntExtra("imageId",R.drawable.a);
-            bigBm = decodeBitmap(ImageResId,400,600);
+        int id = intent.getIntExtra("Id",0);
+        if(id==1){
+            String path = intent.getStringExtra("picPath");
+            bigBm =decodeBitmapByFile(path,400,400);
+        }else {
+            ImageResId = intent.getIntExtra("imageId", R.drawable.a);
+            bigBm = decodeBitmap(ImageResId, 400, 600);
+        }
 
         type = intent.getIntExtra("type",2);
         switch (type){
             case 1: type_x=2;type_y=2;degree=30;break;
             case 2: type_x=3;type_y=3;degree=50;break;
-            case 3: type_x=3;type_y=4;degree=70;break;
-            case 4: type_x=4;type_y=4;degree=100;break;
+            case 3: type_x=4;type_y=3;degree=70;break;
+            case 4: type_x=4;type_y=4;degree=90;break;
         }
     }
 
