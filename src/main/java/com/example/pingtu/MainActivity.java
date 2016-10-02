@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         bestView.setText(""+best);
 
         smallImage =new ImageView[type_x][type_y];
-
         Point point = ScreenSizeUtil.ScreenWandH(this);//point.x和point.y返回的单位是px
         screenX = ScreenSizeUtil.px2dip(this,point.x);
         screenY = ScreenSizeUtil.px2dip(this,point.y);

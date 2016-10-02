@@ -106,12 +106,12 @@ public class SelectActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(which == 0){
                     Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                    intent.setType("image/*");
+//                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    intent.setType("image/*");
                     startActivityForResult(intent, RESULT_IMAGE);
                 }else  if(which ==1){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
-                    Uri photoUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"t.jpg"));
+                    Uri photoUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(),"t.jpg"));
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                     startActivityForResult(intent, RESULT_CAMERA);
                 }
@@ -185,7 +185,8 @@ public class SelectActivity extends AppCompatActivity {
         });
     }
 
-    private void showPopup(View v) {popup = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private void showPopup(View v) {
+        popup = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popup.setFocusable(true);
         popup.setOutsideTouchable(true);
         Drawable transpent = new ColorDrawable(Color.TRANSPARENT);
